@@ -6,6 +6,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author brandon
+ * @since 2016/10/10
+ */
 public class MainActivity extends AppCompatActivity implements OnClickListener{
 	private TextView mFormulaTextView;
 	private TextView mResultTextView;
@@ -45,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 	
 	public void caculator() {
 		String source =mResultTextView.getText().toString();
-		// ¸ñÊ½´íÎóÊ±²»½øÐÐ¼ÆËã
+		// ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½
 		if(!source.contains("(") && source.contains(")") 
 				|| source.contains("(") && !source.contains(")")) {
 			return;
@@ -119,13 +124,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener{
 			if("".equals(s)) {
 				s = "0";
 			}
-			mResultTextView.setText(s + "¡Á");
+			mResultTextView.setText(s + "ï¿½ï¿½");
 			break;
 		case R.id.div:
 			if("".equals(s)) {
 				s = "0";
 			}
-			mResultTextView.setText(s + "¡Â");
+			mResultTextView.setText(s + "ï¿½ï¿½");
 			break;
 		case R.id.backspace:
 			String ss = mResultTextView.getText().toString();
