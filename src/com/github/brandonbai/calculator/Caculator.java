@@ -13,28 +13,28 @@ import java.util.Stack;
 
 public class Caculator {
 
-	// ÖĞ×º±í´ïÊ½×Ö·û´®
+	// ä¸­ç¼€è¡¨è¾¾å¼å­—ç¬¦ä¸²
 	private String source;
-	// ±£´æ´¦ÀíºóµÄÖĞ×º±í´ïÊ½µÄ¼¯ºÏ
+	// ä¿å­˜å¤„ç†åçš„ä¸­ç¼€è¡¨è¾¾å¼çš„é›†åˆ
 	private List<String> polan = new ArrayList<String>();
-	// ±£´æÁÙÊ±ÔËËã·ûµÄÕ»
+	// ä¿å­˜ä¸´æ—¶è¿ç®—ç¬¦çš„æ ˆ
 	private Stack<String> s1 = new Stack<String>();
-	// ±£´æºó×º±í´ïÊ½µÄÕ»
+	// ä¿å­˜åç¼€è¡¨è¾¾å¼çš„æ ˆ
 	private Stack<String> s2 = new Stack<String>();
-	// ÔËËã·ûÓ³Éä¼¯ºÏ
+	// è¿ç®—ç¬¦æ˜ å°„é›†åˆ
 	private static Map<String, Integer> map = new HashMap<String, Integer>();
 
 	static {
 		map.put("+", 0);
 		map.put("-", 0);
-		map.put("¡Á", 1);
-		map.put("¡Â", 1);
+		map.put("Ã—", 1);
+		map.put("Ã·", 1);
 		map.put("(", -1);
 		map.put(")", -1);
 	}
 	
 	/**
-	 * Ô¤´¦Àí£¬Æ¥ÅäÊı×Ö×Ö·û´®
+	 * é¢„å¤„ç†ï¼ŒåŒ¹é…æ•°å­—å­—ç¬¦ä¸²
 	 * "((1+2)*3-2)/2#"
 	 */
 	public void preProcess() {
@@ -82,17 +82,17 @@ public class Caculator {
 			}
 			
 		}
-		System.out.println("´¦ÀíºóµÄÖĞ×º±í´ïÊ½£º" + polan);
+		System.out.println("å¤„ç†åçš„ä¸­ç¼€è¡¨è¾¾å¼ï¼š" + polan);
 	}
 	
 	/**
-	 * ÖĞ×º±í´ïÊ½×ªºó×º±í´ïÊ½
+	 * ä¸­ç¼€è¡¨è¾¾å¼è½¬åç¼€è¡¨è¾¾å¼
 	 *
 	 */
 	public void process() {
 		for (String s : polan) {
-			if ("+".equals(s) || "-".equals(s) || "¡Á".equals(s)
-					|| "¡Â".equals(s)) {
+			if ("+".equals(s) || "-".equals(s) || "Ã—".equals(s)
+					|| "Ã·".equals(s)) {
 				while (!s1.isEmpty() && map.get(s1.lastElement()) >= map.get(s)) {
 					String c = s1.pop();
 					s2.push(c);
@@ -117,11 +117,11 @@ public class Caculator {
 				s2.push(s);
 			}
 		}
-		System.out.println("ºó×º±í´ïÊ½£º " + s2);
+		System.out.println("åç¼€è¡¨è¾¾å¼ï¼š " + s2);
 	}
 
 	/**
-	 * ·´×ªºó×º±í´ïÊ½Õ»
+	 * åè½¬åç¼€è¡¨è¾¾å¼æ ˆ
 	 */
 	public void reverse() {
 		Queue<String> rev = new LinkedList<String>();
@@ -137,18 +137,18 @@ public class Caculator {
 	}
 
 	/**
-	 * ¼ÆËã½á¹û
+	 * è®¡ç®—ç»“æœ
 	 */
 	public String caculate(String source) {
 		this.source = source;
-		System.out.println("ÖĞ×º±í´ïÊ½Îª£º" + source);
+		System.out.println("ä¸­ç¼€è¡¨è¾¾å¼ä¸ºï¼š" + source);
 		preProcess();
 		process();
 		reverse();
 		Stack<BigDecimal> s3 = new Stack<BigDecimal>();
 		while (!s2.isEmpty()) {
 			String c = s2.pop();
-			if ("+".equals(c) || "-".equals(c) || "¡Á".equals(c) || "¡Â".equals(c)) {
+			if ("+".equals(c) || "-".equals(c) || "Ã—".equals(c) || "Ã·".equals(c)) {
 				if(s3.size() < 2) {
 					return "0";
 				}
@@ -158,9 +158,9 @@ public class Caculator {
 					n1 = n1.add(n2);
 				} else if ("-".equals(c)) {
 					n1 = n2.subtract(n1);
-				} else if ("¡Á".equals(c)) {
+				} else if ("Ã—".equals(c)) {
 					n1 = n1.multiply(n2);
-				} else if ("¡Â".equals(c)) {
+				} else if ("Ã·".equals(c)) {
 					if(n1.doubleValue() == 0) {
 						return "error";
 					}
